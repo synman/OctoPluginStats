@@ -31,7 +31,7 @@ function getData() {
         createVersionsChart(data.m117speechsynthesis, "m117speechsynthesis", "OctoPrint-M117SpeechSynthesis");
         createVersionsChart(data.taborder, "taborder", "OctoPrint-TabOrder");
         createVersionsChart(data.bedlevelvisualizer, "bedlevelvisualizer", "Bed Level Visualizer");
-        createVersionsChart(data.ipOnConnect, "ipOnConnect", "OctoPrint-ipOnConnect");
+        createVersionsChart(data.iponconnect, "iponconnect", "OctoPrint-ipOnConnect");
         createVersionsChart(data.sidebartempgraph, "sidebartempgraph", "OctoPrint-SideBarTempGraph");
         createVersionsChart(data.domoticz, "domoticz", "OctoPrint-Domoticz");
         createVersionsChart(data.bedlevelingwizard, "bedlevelingwizard", "OctoPrint-BedLevelingWizard");
