@@ -60,13 +60,21 @@ function getData() {
         var data = JSON.parse(response.responseText)
         console.log(data)
         for(plugin in data){
+            var container = document.getElementById('statsOverview').children[0];
+            if (container) {
+                var graph = document.createElement("div");
+                graph.id = plugin;
+                var wrapper = document.createElement("div");
+                wrapper.className = "col-md-3";
+                wrapper.appendChild(graph);
+                container.appendChild(wrapper);
+            }
             createVersionsChart(data[plugin], plugin, names[plugin]);
         }
     })
 }
 
 function createVersionsChart(data, element, name) {
-    console.log(data)
     var values = []
     var labels = []
     try {
