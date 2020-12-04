@@ -27,7 +27,7 @@ PLUGIN_IDS: list = [
     "m117speechsynthesis",
     "taborder",
     "bedlevelvisualizer",
-    "ipOnConnect",
+    "iponconnect",
     "sidebartempgraph",
     "domoticz",
     "bedlevelingwizard",
