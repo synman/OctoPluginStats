@@ -1,5 +1,48 @@
 var date = new Date()
 var PATH_TO_STATS = "data/stats.json?t=" + date.getTime()
+var names = {
+    stlviewer: "STL Viewer",
+    displayprogress: "DisplayProgress",
+    m117navbar: "OctoPrint-M117NavBar",
+    m117popup: "OctoPrint-M117PopUp",
+    bltouch: "OctoPrint-BLTouch",
+    youtubelive: "YouTube Live",
+    custombackground: "OctoPrint-CustomBackground",
+    tplinksmartplug: "OctoPrint-TPLinkSmartplug",
+    tasmota: "OctoPrint-Tasmota",
+    floatingnavbar: "OctoPrint-FloatingNavbar",
+    mqttpublish: "OctoPrint-MQTTPublish",
+    tasmota_mqtt: "OctoPrint-TasmotaMQTT",
+    m117speechsynthesis: "OctoPrint-M117SpeechSynthesis",
+    taborder: "OctoPrint-TabOrder",
+    bedlevelvisualizer: "Bed Level Visualizer",
+    iponconnect: "OctoPrint-ipOnConnect",
+    sidebartempgraph: "OctoPrint-SideBarTempGraph",
+    domoticz: "OctoPrint-Domoticz",
+    bedlevelingwizard: "OctoPrint-BedLevelingWizard",
+    statefulsidebar: "Stateful Sidebar",
+    rtmpstreamer: "OctoPrint-RTMPStreamer",
+    wemoswitch: "OctoPrint-WemoSwitch",
+    active_filters_extended: "Active Filters Extended",
+    dragon_order: "OctoPrint-DragonOrder",
+    myminifactory: "OctoPrint-MyMiniFactory",
+    ultimakerformatpackage: "Cura Thumbnails",
+    terminalcommandsextended: "Terminal Commands Extended",
+    python3plugincompatibilitycheck: "Python 3 Check",
+    autoterminalinput: "Auto Terminal Input",
+    prusaslicerthumbnails: "PrusaSlicer Thumbnails",
+    easyservo: "Easy Servo",
+    multilineterminal: "Multi Line Terminal",
+    mqttsubscribe: "MQTT Subscribe",
+    m300player: "M300 Player",
+    stickypad: "Sticky Pad",
+    webcam_iframe: "Webcam Iframe",
+    widescreen: "OctoPrint-WideScreen",
+    consolidate_temp_control: "Consolidate Temp Control",
+    arducamfocus: "ArduCamFocus",
+    consolidatedtabs: "Consolidated Tabs",
+    backupscheduler: "Backup Scheduler"
+}
 
 function ajaxGet(path, callback) {
     var xhttp = new XMLHttpRequest();
@@ -16,47 +59,9 @@ function getData() {
     ajaxGet(PATH_TO_STATS, function (response){
         var data = JSON.parse(response.responseText)
         console.log(data)
-        createVersionsChart(data.stlviewer, "stlviewer", "STL Viewer");
-        createVersionsChart(data.displayprogress, "displayprogress", "DisplayProgress");
-        createVersionsChart(data.m117navbar, "m117navbar", "OctoPrint-M117NavBar");
-        createVersionsChart(data.m117popup, "m117popup", "OctoPrint-M117PopUp");
-        createVersionsChart(data.bltouch, "bltouch", "OctoPrint-BLTouch");
-        createVersionsChart(data.youtubelive, "youtubelive", "YouTube Live");
-        createVersionsChart(data.custombackground, "custombackground", "OctoPrint-CustomBackground");
-        createVersionsChart(data.tplinksmartplug, "tplinksmartplug", "OctoPrint-TPLinkSmartplug");
-        createVersionsChart(data.tasmota, "tasmota", "OctoPrint-Tasmota");
-        createVersionsChart(data.floatingnavbar, "floatingnavbar", "OctoPrint-FloatingNavbar");
-        createVersionsChart(data.mqttpublish, "mqttpublish", "OctoPrint-MQTTPublish");
-        createVersionsChart(data.tasmota_mqtt, "tasmota_mqtt", "OctoPrint-TasmotaMQTT");
-        createVersionsChart(data.m117speechsynthesis, "m117speechsynthesis", "OctoPrint-M117SpeechSynthesis");
-        createVersionsChart(data.taborder, "taborder", "OctoPrint-TabOrder");
-        createVersionsChart(data.bedlevelvisualizer, "bedlevelvisualizer", "Bed Level Visualizer");
-        createVersionsChart(data.iponconnect, "iponconnect", "OctoPrint-ipOnConnect");
-        createVersionsChart(data.sidebartempgraph, "sidebartempgraph", "OctoPrint-SideBarTempGraph");
-        createVersionsChart(data.domoticz, "domoticz", "OctoPrint-Domoticz");
-        createVersionsChart(data.bedlevelingwizard, "bedlevelingwizard", "OctoPrint-BedLevelingWizard");
-        createVersionsChart(data.statefulsidebar, "statefulsidebar", "Stateful Sidebar");
-        createVersionsChart(data.rtmpstreamer, "rtmpstreamer", "OctoPrint-RTMPStreamer");
-        createVersionsChart(data.wemoswitch, "wemoswitch", "OctoPrint-WemoSwitch");
-        createVersionsChart(data.active_filters_extended, "active_filters_extended", "Active Filters Extended");
-        createVersionsChart(data.dragon_order, "dragon_order", "OctoPrint-DragonOrder");
-        createVersionsChart(data.myminifactory, "myminifactory", "OctoPrint-MyMiniFactory");
-        createVersionsChart(data.ultimakerformatpackage, "ultimakerformatpackage", "Cura Thumbnails");
-        createVersionsChart(data.terminalcommandsextended, "terminalcommandsextended", "Terminal Commands Extended");
-        createVersionsChart(data.python3plugincompatibilitycheck, "python3plugincompatibilitycheck", "Python 3 Check");
-        createVersionsChart(data.autoterminalinput, "autoterminalinput", "Auto Terminal Input");
-        createVersionsChart(data.prusaslicerthumbnails, "prusaslicerthumbnails", "PrusaSlicer Thumbnails");
-        createVersionsChart(data.easyservo, "easyservo", "Easy Servo");
-        createVersionsChart(data.multilineterminal, "multilineterminal", "Multi Line Terminal");
-        createVersionsChart(data.mqttsubscribe, "mqttsubscribe", "MQTT Subscribe");
-        createVersionsChart(data.m300player, "m300player", "M300 Player");
-        createVersionsChart(data.stickypad, "stickypad", "Sticky Pad");
-        createVersionsChart(data.webcam_iframe, "webcam_iframe", "Webcam Iframe");
-        createVersionsChart(data.widescreen, "widescreen", "OctoPrint-WideScreen");
-        createVersionsChart(data.consolidate_temp_control, "consolidate_temp_control", "Consolidate Temp Control");
-        createVersionsChart(data.arducamfocus, "arducamfocus", "ArduCamFocus");
-        createVersionsChart(data.consolidatedtabs, "consolidatedtabs", "Consolidated Tabs");
-        createVersionsChart(data.backupscheduler, "backupscheduler", "Backup Scheduler");
+        for(plugin in data){
+            createVersionsChart(data[plugin], plugin, names[plugin]);
+        }
     })
 }
 
