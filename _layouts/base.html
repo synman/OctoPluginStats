@@ -13,10 +13,6 @@
     <!-- plugin id to name mapping -->
     <script src="static/js/name_map.js"></script>
 
-    <!-- up_btn css and js -->
-    <link href="static/lib/up_btn/up_btn.css" rel="stylesheet">
-    <script src="static/lib/up_btn/up_btn.js"></script>
-
     <title>{{ page.title }}</title>
 </head>
 <body>
@@ -25,10 +21,7 @@
 <div class="container-fluid">
     {{ content }}
 </div>
-
+<button class="btn" onclick="topFunction()" id="top_btn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
 <script src="static/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script type="JavaScript">
-up({src: '/static/lib/up_btn/chevron-up-solid.svg'});
-</script>
 </body>
 </html>
