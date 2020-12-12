@@ -130,7 +130,7 @@ function createHistoryChart(data, element, name){
 }
 
 //Get the button:
-mybutton = document.getElementById("top_btn");
+const mybutton = document.getElementById("top_btn");
 
 // When the user scrolls down 20px from the top of the document, show the button
 window.onscroll = function() {scrollFunction()};
