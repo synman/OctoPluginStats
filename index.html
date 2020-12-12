@@ -10,7 +10,14 @@ layout: base
             <p>
                 <a href="#statsOverview" class="btn btn-primary my-2">View the stats!</a>
             </p>
-            <div id="btnContainer"></div>
+			<div class="btn-group">
+			  <button type="button" class="btn btn-seccondary">Select Plugin</button>
+			  <button type="button" class="btn btn-seccondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<span class="sr-only">Toggle Dropdown</span>
+			  </button>
+			  <div class="dropdown-menu" id="btnContainer">
+			  </div>
+			</div>
         </div>
     </div>
 </section>
