@@ -129,13 +129,13 @@ function createHistoryChart(data, element, name){
 
 }
 
-// When the user scrolls down 20px from the top of the document, show the button
+// When the user scrolls down 100px from the top of the document, show the button
 window.onscroll = function() {scrollFunction()};
 
 function scrollFunction() {
   //Get the button:
   var mybutton = document.getElementById("top_btn");
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
     mybutton.style.display = "block";
   } else {
     mybutton.style.display = "none";
