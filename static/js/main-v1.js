@@ -47,9 +47,9 @@ function add_elements(plugin){
 
     var btnContainer = document.getElementById("btnContainer")
     if (btnContainer){
-        var buttonHTML = '<a href="#' + plugin + 'Container" class="dropdown-item">' +
+        var buttonHTML = '<li><a href="#' + plugin + 'Container" class="dropdown-item">' +
             names[plugin] +
-            '</a>'
+            '</a></li>'
         btnContainer.innerHTML = btnContainer.innerHTML + buttonHTML
     }
 }
