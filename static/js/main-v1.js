@@ -135,7 +135,7 @@ window.onscroll = function() {scrollFunction()};
 function scrollFunction() {
   //Get the button:
   var mybutton = document.getElementById("top_btn");
-  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+  if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
     mybutton.style.display = "block";
   } else {
     mybutton.style.display = "none";
