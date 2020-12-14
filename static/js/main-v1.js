@@ -30,7 +30,7 @@ function getData() {
         //push data into an array
         let sortArray = [];
         for (let plugin in data){
-            let item = temp1[plugin];
+            let item = data[plugin];
             item.name = plugin;
             sortArray.push(item);
         }
