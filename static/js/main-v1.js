@@ -14,17 +14,15 @@ function ajaxGet(path, callback) {
 
 function getData() {
     ajaxGet(PATH_TO_STATS, function (response){
-        var data = JSON.parse(response.responseText)
-        console.log(data)
+        var data = JSON.parse(response.responseText);
+        console.log(data);
         for (let plugin in data){
-            add_elements(plugin)
-            createVersionsChart(data[plugin], plugin + "Version", names[plugin] + " Versions");
-            createHistoryChart(data[plugin], plugin + "History", names[plugin] + " History (30 days)")
+            window.setTimeout(10, add_elements, [plugin, data[plugin]]);
         }
     })
 }
 
-function add_elements(plugin){
+function add_elements(plugin, plugin_data){
     // Adds the necessary containers & buttons to the page
     var container = document.getElementById('statsOverview').children[0];
     if (container){
@@ -43,6 +41,9 @@ function add_elements(plugin){
         pluginContainer.appendChild(historyGraph)
 
         container.appendChild(pluginContainer)
+        
+        createVersionsChart(plugin_data, plugin + "Version", names[plugin] + " Versions");
+        createHistoryChart(plugin_data, plugin + "History", names[plugin] + " History (30 days)")
     }
 
     var btnContainer = document.getElementById("btnContainer")
