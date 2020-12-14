@@ -36,7 +36,7 @@ function getData() {
         }
         console.log(sortArray);
         // sort based on totals
-        sortArray.sort(GetSortOrderDesc(total));
+        sortArray.sort(GetSortOrderDesc('total'));
         console.log(sortArray);
         for (let plugin in sortArray){
             window.setTimeout(add_elements, 5, sortArray[plugin]);
