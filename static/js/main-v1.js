@@ -17,7 +17,7 @@ function getData() {
         var data = JSON.parse(response.responseText);
         console.log(data);
         for (let plugin in data){
-            window.setTimeout(add_elements, 5, [plugin, data[plugin]]);
+            window.setTimeout(add_elements, 5, plugin, data[plugin]);
         }
     })
 }
