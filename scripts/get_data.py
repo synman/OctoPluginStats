@@ -52,7 +52,8 @@ PLUGIN_IDS: list = [
     "consolidate_temp_control",
     "arducamfocus",
     "consolidatedtabs",
-    "backupscheduler"
+    "backupscheduler",
+    "googledrivebackup"
 ]
 DATA_URL: str = "https://data.octoprint.org/export/"
 STATS_30_DAYS: str = DATA_URL + "plugin_stats_30d.json"
