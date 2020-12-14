@@ -12,44 +12,66 @@ function ajaxGet(path, callback) {
     xhttp.send()
 }
 
+function GetSortOrderDesc(prop){
+   return function(a,b){
+      if( a[prop] < b[prop]){
+          return 1;
+      }else if( a[prop] > b[prop] ){
+          return -1;
+      }
+      return 0;
+   }
+}
+
 function getData() {
     ajaxGet(PATH_TO_STATS, function (response){
         var data = JSON.parse(response.responseText);
         console.log(data);
+        //push data into an array
+        let sortArray = [];
         for (let plugin in data){
-            window.setTimeout(add_elements, 5, plugin, data[plugin]);
+            let item = temp1[plugin];
+            item.name = plugin;
+            sortArray.push(item);
+        }
+        console.log(sortArray);
+        // sort based on totals
+        sortArray.sort(GetSortOrderDesc(total));
+        console.log(sortArray);
+        for (let plugin in sortArray){
+            window.setTimeout(add_elements, 5, sortArray[plugin]);
         }
     })
 }
 
-function add_elements(plugin, plugin_data){
+function add_elements(plugin){
     // Adds the necessary containers & buttons to the page
     var container = document.getElementById('statsOverview').children[0];
     if (container){
         var pluginContainer = document.createElement("div")
-        pluginContainer.id = plugin + "Container"
+        pluginContainer.id = plugin.name + "Container"
         pluginContainer.className = "col-md-12 row"
 
         var versionGraph = document.createElement("div")
-        versionGraph.id = plugin + "Version"
+        versionGraph.id = plugin.name + "Version"
         versionGraph.className = "col-md-6"
         pluginContainer.appendChild(versionGraph)
 
         var historyGraph = document.createElement("div")
-        historyGraph.id = plugin + "History"
+        historyGraph.id = plugin.name + "History"
         historyGraph.className = "col-md-6"
         pluginContainer.appendChild(historyGraph)
 
         container.appendChild(pluginContainer)
         
-        createVersionsChart(plugin_data, plugin + "Version", names[plugin] + " Versions");
-        createHistoryChart(plugin_data, plugin + "History", names[plugin] + " History (30 days)")
+        createVersionsChart(plugin, plugin.name + "Version", names[plugin.name] + " Versions");
+        createHistoryChart(plugin, plugin.name + "History", names[plugin.name] + " History (30 days)")
     }
 
     var btnContainer = document.getElementById("btnContainer")
     if (btnContainer){
-        var buttonHTML = '<a href="#' + plugin + 'Container" class="dropdown-item">' +
-            names[plugin] +
+        var buttonHTML = '<a href="#' + plugin.name + 'Container" class="dropdown-item">' +
+            names[plugin.name] +
             '</a>'
         btnContainer.innerHTML = btnContainer.innerHTML + buttonHTML
     }

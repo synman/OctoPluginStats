@@ -39,5 +39,6 @@ var names = {
     consolidate_temp_control: "Consolidate Temp Control",
     arducamfocus: "ArduCamFocus",
     consolidatedtabs: "Consolidated Tabs",
-    backupscheduler: "Backup Scheduler"
+    backupscheduler: "Backup Scheduler",
+    googledrivebackup: "Google Drive Backup"
 }
