@@ -63,14 +63,12 @@ function add_elements(plugin){
         pluginContainer.appendChild(historyGraph)
 
         container.appendChild(pluginContainer)
-        
+
+        createVersionsChart(plugin, plugin.name + "Version", names[plugin.name] + " Versions");
+        createHistoryChart(plugin, plugin.name + "History", names[plugin.name] + " History (30 days)")
         if(window.location.hash == "#" + pluginContainer.id){
             window.location.href = "#" + pluginContainer.id;
         }
-        
-        
-        createVersionsChart(plugin, plugin.name + "Version", names[plugin.name] + " Versions");
-        createHistoryChart(plugin, plugin.name + "History", names[plugin.name] + " History (30 days)")
     }
 
     var btnContainer = document.getElementById("btnContainer")
