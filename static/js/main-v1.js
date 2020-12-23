@@ -64,6 +64,11 @@ function add_elements(plugin){
 
         container.appendChild(pluginContainer)
         
+        if(window.location.hash == "#" + pluginContainer.id){
+            window.location.href = "#" + pluginContainer.id;
+        }
+        
+        
         createVersionsChart(plugin, plugin.name + "Version", names[plugin.name] + " Versions");
         createHistoryChart(plugin, plugin.name + "History", names[plugin.name] + " History (30 days)")
     }
