@@ -119,16 +119,20 @@ function createIssueChart(data, element, name){
         layout = {
             title: name,
             legend: {"orientation": "h"},
+            xaxis: {
+                linecolor: '#636363',
+                linewidth: 3
+            },
             yaxis: {title: 'Issues',
                 linecolor: '#636363',
-                linewidth: 4
+                linewidth: 3
             },
             yaxis2: {
                 title: 'Total Instances',
                 overlaying: 'y',
                 side: 'right',
                 linecolor: '#636363',
-                linewidth: 4
+                linewidth: 3
             }
         }
 
