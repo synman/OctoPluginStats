@@ -49,17 +49,12 @@ function add_elements(plugin){
     var container = document.getElementById('statsOverview').children[0];
     if (container){
         var pluginContainer = document.createElement("div")
-        pluginContainer.id = plugin.name + "Container"
-        pluginContainer.className = "col-md-12 row"
-
-        var historyGraph = document.createElement("div")
-        historyGraph.id = plugin.name + "Issues"
-        historyGraph.className = "col-md-6"
-        pluginContainer.appendChild(historyGraph)
+        pluginContainer.id = plugin.name + "Issues"
+        pluginContainer.className = "col-md-6"
 
         container.appendChild(pluginContainer)
 
-        createIssueChart(plugin, plugin.name + "Issues", plugin.title + " Issues (30 days)")
+        createIssueChart(plugin, plugin.name + "Issues", plugin.title + " Issues (30 days) " + plugin.total + " Instances")
         if(window.location.hash == "#" + pluginContainer.id){
             window.location.href = "#" + pluginContainer.id;
         }
@@ -67,7 +62,7 @@ function add_elements(plugin){
 
     var btnContainer = document.getElementById("btnContainer")
     if (btnContainer){
-        var buttonHTML = '<a href="#' + plugin.name + 'Container" class="dropdown-item">' +
+        var buttonHTML = '<a href="#' + plugin.name + 'Issues" class="dropdown-item">' +
             plugin.title +
             '</a>'
         btnContainer.innerHTML = btnContainer.innerHTML + buttonHTML
@@ -102,7 +97,7 @@ function createIssueChart(data, element, name){
                 x: x_vals,
                 y: y_vals,
                 mode: 'lines',
-                name: status
+                name: issues[status]
             })
         }
         layout = {
