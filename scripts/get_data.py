@@ -1,4 +1,5 @@
 import sys
+
 if not sys.version_info.major == 3 and int(sys.version_info.minor) >= 7:
     print("Incompatible Python version, need 3.7+")
     sys.exit(-1)
@@ -10,54 +11,9 @@ import copy
 import os
 from typing import Dict, Union
 
-# A list of plugin IDs to use
-PLUGIN_IDS: list = [
-    "stlviewer",
-    "displayprogress",
-    "m117navbar",
-    "m117popup",
-    "bltouch",
-    "youtubelive",
-    "custombackground",
-    "tplinksmartplug",
-    "tasmota",
-    "floatingnavbar",
-    "mqttpublish",
-    "tasmota_mqtt",
-    "m117speechsynthesis",
-    "taborder",
-    "bedlevelvisualizer",
-    "iponconnect",
-    "sidebartempgraph",
-    "domoticz",
-    "bedlevelingwizard",
-    "statefulsidebar",
-    "rtmpstreamer",
-    "wemoswitch",
-    "active_filters_extended",
-    "dragon_order",
-    "myminifactory",
-    "ultimakerformatpackage",
-    "terminalcommandsextended",
-    "python3plugincompatibilitycheck",
-    "autoterminalinput",
-    "prusaslicerthumbnails",
-    "easyservo",
-    "multilineterminal",
-    "mqttsubscribe",
-    "m300player",
-    "stickypad",
-    "webcam_iframe",
-    "widescreen",
-    "consolidate_temp_control",
-    "arducamfocus",
-    "consolidatedtabs",
-    "backupscheduler",
-    "googledrivebackup"
-]
-DATA_URL: str = "https://data.octoprint.org/export/"
-STATS_30_DAYS: str = DATA_URL + "plugin_stats_30d.json"
-STATS_7_DAYS: str = DATA_URL + "plugin_stats_7d.json"
+PLUGIN_AUTHOR: str = "jneilliii"
+
+DATA_URL: str = "https://plugins.octoprint.org/plugins.json"
 
 DATA: Dict[str, Dict[str, Union[int, str, list]]] = {}
 
@@ -86,46 +42,46 @@ if os.path.isfile(os.path.abspath(os.path.join("data", "stats.json"))):
         DATA = json.load(file)
 
 # Get the data
-for URL in [STATS_30_DAYS]:
-    response = requests.get(URL).json()
 
-    # iterate through, find my plugins
-    for plugin_id, plugin_data in response["plugins"].items():
-        if plugin_id in PLUGIN_IDS:
-            print("Processing data for {}".format(plugin_id))
-            # Test plugin data exists
-            try:
-                existing_data = DATA[plugin_id]
-            except KeyError:
-                # Plugin not seen before, create the dict
-                DATA[plugin_id] = {"total": 0, "versions": [], "history": []}
+response = requests.get(DATA_URL).json()
 
-            plugin_stats = copy.deepcopy(DATA[plugin_id])
-            plugin_stats["total"] = plugin_data["instances"]
-            plugin_stats["versions"] = plugin_data["versions"]
+# iterate through, find my plugins
+for plugin in response:
+    if PLUGIN_AUTHOR in plugin["author"]:
+        plugin_id = plugin["id"]
+        print("Processing data for {}".format(plugin_id))
+        # Test plugin data exists
+        try:
+            existing_data = DATA[plugin_id]
+        except KeyError:
+            # Plugin not seen before, create the dict
+            DATA[plugin_id] = {"total": 0, "history": []}
 
-            # Remove the 31st day, if relevant
-            if len(plugin_stats["history"]) >= 30:
-                # Check it's not been run more than once per day, latest data is not today.
-                if plugin_stats["history"][29]["date"] != TODAY:
-                    # remove earliest data
-                    plugin_stats["history"].pop(0)
+        plugin_stats = copy.deepcopy(DATA[plugin_id])
+        plugin_stats["total"] = plugin["stats"]["instances_month"]
+        plugin_stats["title"] = plugin["title"]
 
-            if not len(plugin_stats["history"]) or (
-                    len(plugin_stats["history"]) and plugin_stats["history"][-1]["date"]
-            ) != TODAY:
-                # Add the latest point to the history
-                plugin_stats["history"].append(
-                    {
-                        "date": TODAY,
-                        "total": plugin_data["instances"],
-                        "versions": plugin_data["versions"]
-                    }
-                )
+        # Remove the 31st day, if relevant
+        if len(plugin_stats["history"]) >= 30:
+            # Check it's not been run more than once per day, latest data is not today.
+            if plugin_stats["history"][29]["date"] != TODAY:
+                # remove earliest data
+                plugin_stats["history"].pop(0)
 
-            # Put the data back
-            DATA[plugin_id] = plugin_stats
+        if not len(plugin_stats["history"]) or (
+                len(plugin_stats["history"]) and plugin_stats["history"][-1]["date"]
+        ) != TODAY:
+            # Add the latest point to the history
+            plugin_stats["history"].append(
+                {
+                    "date": TODAY,
+                    "total": plugin["stats"]["instances_month"],
+                    "issues": plugin["github"]["issues"]
+                }
+            )
 
+        # Put the data back
+        DATA[plugin_id] = plugin_stats
 
 # write back to the file
 with open(os.path.abspath(os.path.join("data", "stats.json")), "wt") as file:

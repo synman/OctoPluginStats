@@ -26,7 +26,7 @@ function GetSortOrderDesc(prop){
 function getData() {
     ajaxGet(PATH_TO_STATS, function (response){
         var data = JSON.parse(response.responseText);
-        console.log(data);
+        //console.log(data);
         //push data into an array
         let sortArray = [];
         for (let plugin in data){
@@ -34,7 +34,7 @@ function getData() {
             item.name = plugin;
             sortArray.push(item);
         }
-        console.log(sortArray);
+        //console.log(sortArray);
         // sort based on totals
         sortArray.sort(GetSortOrderDesc('total'));
         console.log(sortArray);
@@ -52,20 +52,14 @@ function add_elements(plugin){
         pluginContainer.id = plugin.name + "Container"
         pluginContainer.className = "col-md-12 row"
 
-        var versionGraph = document.createElement("div")
-        versionGraph.id = plugin.name + "Version"
-        versionGraph.className = "col-md-6"
-        pluginContainer.appendChild(versionGraph)
-
         var historyGraph = document.createElement("div")
-        historyGraph.id = plugin.name + "History"
+        historyGraph.id = plugin.name + "Issues"
         historyGraph.className = "col-md-6"
         pluginContainer.appendChild(historyGraph)
 
         container.appendChild(pluginContainer)
 
-        createVersionsChart(plugin, plugin.name + "Version", names[plugin.name] + " Versions");
-        createHistoryChart(plugin, plugin.name + "History", names[plugin.name] + " History (30 days)")
+        createIssueChart(plugin, plugin.name + "Issues", plugin.title + " Issues (30 days)")
         if(window.location.hash == "#" + pluginContainer.id){
             window.location.href = "#" + pluginContainer.id;
         }
@@ -74,65 +68,31 @@ function add_elements(plugin){
     var btnContainer = document.getElementById("btnContainer")
     if (btnContainer){
         var buttonHTML = '<a href="#' + plugin.name + 'Container" class="dropdown-item">' +
-            names[plugin.name] +
+            plugin.title +
             '</a>'
         btnContainer.innerHTML = btnContainer.innerHTML + buttonHTML
     }
 }
 
-function createVersionsChart(data, element, name) {
-    console.log(data)
-    try {
-        var values = []
-        var labels = []
-        for (let version in data.versions) {
-            labels.push(version)
-            values.push(data.versions[version].instances)
-        }
-        var chartData = [{
-            values: values,
-            labels: labels,
-            hole: .4,
-            type: "pie",
-        }]
-        var layout = {
-            title: name,
-            annotations: [
-                {
-                    font: {
-                        size: 20
-                    },
-                    showarrow: false,
-                    text: data.total
-                }
-            ],
-        }
-        Plotly.newPlot(element, chartData, layout)
-    } catch (error) {
-        console.log(name, error)
-    }
-}
-
-function createHistoryChart(data, element, name){
+function createIssueChart(data, element, name){
     try{
         var x_vals = []
-        var versions = []
+        var issues = []
         for (let date in data.history){
             x_vals.push(data.history[date].date)
-            for (let version in data.history[date].versions){
-                if (!versions.includes(version)){
-                    versions.push(version)
+            for (let status in data.history[date].issues){
+                if (!issues.includes(status)){
+                    issues.push(status)
                 }
             }
         }
         var lines = []
 
-        for (let versionIndex in versions) {
-            var version = versions[versionIndex]
+        for (let status in issues) {
             var y_vals = []
             for (let date in data.history) {
                 try {
-                    y_vals.push(data.history[date].versions[version].instances)
+                    y_vals.push(data.history[date].issues[issues[status]])
                 } catch (e) {
                     // if the version didn't exist on that date, line should be at 0
                     y_vals.push(0)
@@ -142,7 +102,7 @@ function createHistoryChart(data, element, name){
                 x: x_vals,
                 y: y_vals,
                 mode: 'lines',
-                name: version
+                name: status
             })
         }
         layout = {
