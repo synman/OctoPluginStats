@@ -73,6 +73,9 @@ function createIssueChart(data, element, name){
     try{
         var x_vals = []
         var issues = []
+		var y_vals_instances = []
+        var lines = []
+		
         for (let date in data.history){
             x_vals.push(data.history[date].date)
             for (let status in data.history[date].issues){
@@ -80,8 +83,21 @@ function createIssueChart(data, element, name){
                     issues.push(status)
                 }
             }
+			try {
+				y_vals_instances.push(data.history[date].total)
+			} catch (e) {
+				// if the version didn't exist on that date, line should be at 0
+				y_vals_instances.push(0)
+			}
         }
-        var lines = []
+		
+		lines.push({
+			x: x_vals,
+			y: y_vals_instances,
+			yaxis: 'y2',
+			mode: 'lines',
+			name: 'instances'
+		})
 
         for (let status in issues) {
             var y_vals = []
@@ -102,7 +118,14 @@ function createIssueChart(data, element, name){
         }
         layout = {
             title: name,
+            yaxis: {title: 'Issues'},
+            yaxis2: {
+                title: 'Total Instances',
+                overlaying: 'y',
+                side: 'right'
+            }
         }
+
         Plotly.newPlot(element, lines, layout)
     } catch (e) {
         console.log(name, e)
