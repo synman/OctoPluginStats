@@ -49,8 +49,12 @@ function add_elements(plugin){
     var container = document.getElementById('statsOverview').children[0];
     if (container){
         var pluginContainer = document.createElement("div")
-        pluginContainer.id = plugin.name + "Issues"
+        pluginContainer.id = plugin.name + "Container"
         pluginContainer.className = "col-md-6"
+        
+        var issuesGraph = document.createElement("div")
+        issuesGraph.id = plugin.name + "Issues"
+        pluginContainer.appendChild(issuesGraph)
 
         container.appendChild(pluginContainer)
 
@@ -62,7 +66,7 @@ function add_elements(plugin){
 
     var btnContainer = document.getElementById("btnContainer")
     if (btnContainer){
-        var buttonHTML = '<a href="#' + plugin.name + 'Issues" class="dropdown-item">' +
+        var buttonHTML = '<a href="#' + plugin.name + 'Container" class="dropdown-item">' +
             plugin.title +
             '</a>'
         btnContainer.innerHTML = btnContainer.innerHTML + buttonHTML
@@ -118,10 +122,22 @@ function createIssueChart(data, element, name){
         }
         layout = {
             title: name,
-            legend: {"orientation": "h"},
+            legend: {
+                x: 1,
+                xanchor: 'right',
+                y: 1
+            },
+            margin: {
+                l: 50,
+                r: 70,
+                b: 100,
+                t: 40,
+                pad: 4
+            },
             xaxis: {
                 linecolor: '#636363',
-                linewidth: 3
+                linewidth: 3,
+                mirror: 'ticks'
             },
             yaxis: {title: 'Issues',
                 linecolor: '#636363',
@@ -132,11 +148,12 @@ function createIssueChart(data, element, name){
                 overlaying: 'y',
                 side: 'right',
                 linecolor: '#636363',
-                linewidth: 3
+                linewidth: 3,
+                tickformat: '.3s'
             }
         }
 
-        Plotly.newPlot(element, lines, layout)
+        Plotly.newPlot(element, lines, layout, {displayModeBar: false})
     } catch (e) {
         console.log(name, e)
     }
