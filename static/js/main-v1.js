@@ -65,7 +65,7 @@ function add_elements(plugin){
         container.appendChild(pluginContainer)
 
         createIssuesChart(plugin, plugin.name + "Issues", plugin.title + " Issues (30 days) ")
-        createInstanceChart(plugin, plugin.name + "Instances", plugin.title + " " + plugin.total + " Instances")
+        createInstanceChart(plugin, plugin.name + "Instances", plugin.title + " " + plugin.total + " Current Instances")
         if(window.location.hash == "#" + pluginContainer.id){
             window.location.href = "#" + pluginContainer.id;
         }
