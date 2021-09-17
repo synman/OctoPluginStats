@@ -177,7 +177,6 @@ function createInstanceChart(data, element, name){
             xaxis: {
                 linecolor: '#636363',
                 linewidth: 3,
-                mirror: 'ticks'
             },
             yaxis: {title: 'Instances',
                 linecolor: '#636363',
