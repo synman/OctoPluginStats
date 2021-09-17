@@ -52,6 +52,10 @@ function add_elements(plugin){
         pluginContainer.id = plugin.name + "Container"
         pluginContainer.className = "row-fluid"
         
+        var pluginTitle = document.createElement("h4");
+        pluginTitle.text = plugin.name
+        pluginContainer.appendChild(pluginTitle);
+        
         var issuesGraph = document.createElement("div")
         issuesGraph.id = plugin.name + "Issues"
         issuesGraph.className = "col-md-6"
@@ -64,8 +68,8 @@ function add_elements(plugin){
 
         container.appendChild(pluginContainer)
 
-        createIssuesChart(plugin, plugin.name + "Issues", plugin.title + " Issues (30 days) ")
-        createInstanceChart(plugin, plugin.name + "Instances", plugin.title + " " + plugin.total + " Current Instances")
+        createIssuesChart(plugin, plugin.name + "Issues", "Issues (30 days) ")
+        createInstanceChart(plugin, plugin.name + "Instances", "Current Instances")
         if(window.location.hash == "#" + pluginContainer.id){
             window.location.href = "#" + pluginContainer.id;
         }
