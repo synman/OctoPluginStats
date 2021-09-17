@@ -55,21 +55,21 @@ function add_elements(plugin){
         var pluginTitle = document.createElement("h4");
         pluginTitle.innerHTML = plugin.title;
         pluginContainer.appendChild(pluginTitle);
+
+        var instanceGraph = document.createElement("div");
+        instanceGraph.id = plugin.name + "Instances";
+        instanceGraph.className = "col-md-6";
+        pluginContainer.appendChild(instanceGraph);
         
         var issuesGraph = document.createElement("div");
         issuesGraph.id = plugin.name + "Issues";
         issuesGraph.className = "col-md-6";
         pluginContainer.appendChild(issuesGraph);
 
-        var instanceGraph = document.createElement("div");
-        instanceGraph.id = plugin.name + "Instances";
-        instanceGraph.className = "col-md-6";
-        pluginContainer.appendChild(instanceGraph);
-
         container.appendChild(pluginContainer);
 
         createIssuesChart(plugin, plugin.name + "Issues", "Issues (30 days) ");
-        createInstanceChart(plugin, plugin.name + "Instances", "Current Instances");
+        createInstanceChart(plugin, plugin.name + "Instances", "Instances");
         if(window.location.hash == "#" + pluginContainer.id){
             window.location.href = "#" + pluginContainer.id;
         }
