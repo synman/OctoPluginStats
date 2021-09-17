@@ -69,7 +69,7 @@ function add_elements(plugin){
         container.appendChild(pluginContainer);
 
         createIssuesChart(plugin, plugin.name + "Issues", "Issues (30 days) ");
-        createInstanceChart(plugin, plugin.name + "Instances", "Instances");
+        createInstanceChart(plugin, plugin.name + "Instances", "Instances " + plugin.total + "(current)");
         if(window.location.hash == "#" + pluginContainer.id){
             window.location.href = "#" + pluginContainer.id;
         }
