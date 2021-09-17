@@ -114,6 +114,17 @@ function createIssuesChart(data, element, name){
         }
         layout = {
             title: name,
+            legend: {
+                x: 1,
+                y: 1
+            },
+            margin: {
+                l: 50,
+                r: 70,
+                b: 100,
+                t: 40,
+                pad: 4
+            },
             xaxis: {
                 linecolor: '#636363',
                 linewidth: 3,
