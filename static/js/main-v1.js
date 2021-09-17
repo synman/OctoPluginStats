@@ -119,7 +119,7 @@ function createIssuesChart(data, element, name){
         layout = {
             title: name,
             margin: {
-                l: 50,
+                l: 60,
                 r: 50,
                 b: 100,
                 t: 40,
@@ -169,7 +169,7 @@ function createInstanceChart(data, element, name){
         layout = {
             title: name,
             margin: {
-                l: 50,
+                l: 60,
                 r: 50,
                 b: 100,
                 t: 40,
