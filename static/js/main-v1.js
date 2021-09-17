@@ -54,11 +54,18 @@ function add_elements(plugin){
         
         var issuesGraph = document.createElement("div")
         issuesGraph.id = plugin.name + "Issues"
+        issuesGraph.className = "col-md-6"
         pluginContainer.appendChild(issuesGraph)
+
+        var instanceGraph = document.createElement("div")
+        instanceGraph.id = plugin.name + "Instances"
+        instanceGraph.className = "col-md-6"
+        pluginContainer.appendChild(instanceGraph)
 
         container.appendChild(pluginContainer)
 
-        createIssueChart(plugin, plugin.name + "Issues", plugin.title + " Issues (30 days) " + plugin.total + " Instances")
+        createIssuesChart(plugin, plugin.name + "Issues", plugin.title + " Issues (30 days) ")
+        createInstanceChart(plugin, plugin.name + "Instances", plugin.title + " " + plugin.total + " Instances")
         if(window.location.hash == "#" + pluginContainer.id){
             window.location.href = "#" + pluginContainer.id;
         }
@@ -73,11 +80,10 @@ function add_elements(plugin){
     }
 }
 
-function createIssueChart(data, element, name){
+function createIssuesChart(data, element, name){
     try{
         var x_vals = []
         var issues = []
-        var y_vals_instances = []
         var lines = []
         
         for (let date in data.history){
@@ -87,21 +93,7 @@ function createIssueChart(data, element, name){
                     issues.push(status)
                 }
             }
-            try {
-                y_vals_instances.push(data.history[date].total)
-            } catch (e) {
-                // if the version didn't exist on that date, line should be at 0
-                y_vals_instances.push(0)
-            }
         }
-        
-        lines.push({
-            x: x_vals,
-            y: y_vals_instances,
-            yaxis: 'y2',
-            mode: 'lines',
-            name: 'instances'
-        })
 
         for (let status in issues) {
             var y_vals = []
@@ -124,7 +116,6 @@ function createIssueChart(data, element, name){
             title: name,
             legend: {
                 x: 1,
-                xanchor: 'right',
                 y: 1
             },
             margin: {
@@ -142,14 +133,6 @@ function createIssueChart(data, element, name){
             yaxis: {title: 'Issues',
                 linecolor: '#636363',
                 linewidth: 3
-            },
-            yaxis2: {
-                title: 'Total Instances',
-                overlaying: 'y',
-                side: 'right',
-                linecolor: '#636363',
-                linewidth: 3,
-                tickformat: '.3s'
             }
         }
 
@@ -157,7 +140,59 @@ function createIssueChart(data, element, name){
     } catch (e) {
         console.log(name, e)
     }
+}
 
+function createInstanceChart(data, element, name){
+    try{
+        var x_vals = []
+        var y_vals_instances = []
+        var lines = []
+        
+        for (let date in data.history){
+            x_vals.push(data.history[date].date)
+            try {
+                y_vals_instances.push(data.history[date].total)
+            } catch (e) {
+                // if the version didn't exist on that date, line should be at 0
+                y_vals_instances.push(0)
+            }
+        }
+        
+        lines.push({
+            x: x_vals,
+            y: y_vals_instances,
+            mode: 'lines',
+            name: 'instances'
+        })
+
+        layout = {
+            title: name,
+            legend: {
+                x: 1,
+                y: 1
+            },
+            margin: {
+                l: 50,
+                r: 70,
+                b: 100,
+                t: 40,
+                pad: 4
+            },
+            xaxis: {
+                linecolor: '#636363',
+                linewidth: 3,
+                mirror: 'ticks'
+            },
+            yaxis: {title: 'Instances',
+                linecolor: '#636363',
+                linewidth: 3
+            }
+        }
+
+        Plotly.newPlot(element, lines, layout, {displayModeBar: false})
+    } catch (e) {
+        console.log(name, e)
+    }
 }
 
 // When the user scrolls down 100px from the top of the document, show the button
