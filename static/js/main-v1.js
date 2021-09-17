@@ -118,6 +118,9 @@ function createIssuesChart(data, element, name){
         }
         layout = {
             title: name,
+            margin: {
+                t: 40
+            },
             xaxis: {
                 linecolor: '#636363',
                 linewidth: 3,
@@ -161,6 +164,9 @@ function createInstanceChart(data, element, name){
 
         layout = {
             title: name,
+            margin: {
+                t: 40
+            },
             xaxis: {
                 linecolor: '#636363',
                 linewidth: 3,
