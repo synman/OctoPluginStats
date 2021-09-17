@@ -50,10 +50,10 @@ function add_elements(plugin){
     if (container){
         var pluginContainer = document.createElement("div")
         pluginContainer.id = plugin.name + "Container"
-        pluginContainer.className = "row-fluid"
+        pluginContainer.className = "row"
         
         var pluginTitle = document.createElement("h4");
-        pluginTitle.text = plugin.name
+        pluginTitle.innerHTML = plugin.name
         pluginContainer.appendChild(pluginTitle);
         
         var issuesGraph = document.createElement("div")
