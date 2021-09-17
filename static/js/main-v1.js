@@ -50,7 +50,7 @@ function add_elements(plugin){
     if (container){
         var pluginContainer = document.createElement("div")
         pluginContainer.id = plugin.name + "Container"
-        pluginContainer.className = "row"
+        pluginContainer.className = "row-fluid"
         
         var issuesGraph = document.createElement("div")
         issuesGraph.id = plugin.name + "Issues"
