@@ -5,11 +5,11 @@ function ajaxGet(path, callback) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200){
-            callback(this)
+            callback(this);
         }
     }
-    xhttp.open("GET", path)
-    xhttp.send()
+    xhttp.open("GET", path);
+    xhttp.send();
 }
 
 function GetSortOrderDesc(prop){
@@ -48,65 +48,65 @@ function add_elements(plugin){
     // Adds the necessary containers & buttons to the page
     var container = document.getElementById('statsOverview').children[0];
     if (container){
-        var pluginContainer = document.createElement("div")
-        pluginContainer.id = plugin.name + "Container"
-        pluginContainer.className = "row"
+        var pluginContainer = document.createElement("div");
+        pluginContainer.id = plugin.name + "Container";
+        pluginContainer.className = "row";
         
         var pluginTitle = document.createElement("h4");
-        pluginTitle.innerHTML = plugin.name
+        pluginTitle.innerHTML = plugin.title;
         pluginContainer.appendChild(pluginTitle);
         
-        var issuesGraph = document.createElement("div")
-        issuesGraph.id = plugin.name + "Issues"
-        issuesGraph.className = "col-md-6"
-        pluginContainer.appendChild(issuesGraph)
+        var issuesGraph = document.createElement("div");
+        issuesGraph.id = plugin.name + "Issues";
+        issuesGraph.className = "col-md-6";
+        pluginContainer.appendChild(issuesGraph);
 
-        var instanceGraph = document.createElement("div")
-        instanceGraph.id = plugin.name + "Instances"
-        instanceGraph.className = "col-md-6"
-        pluginContainer.appendChild(instanceGraph)
+        var instanceGraph = document.createElement("div");
+        instanceGraph.id = plugin.name + "Instances";
+        instanceGraph.className = "col-md-6";
+        pluginContainer.appendChild(instanceGraph);
 
-        container.appendChild(pluginContainer)
+        container.appendChild(pluginContainer);
 
-        createIssuesChart(plugin, plugin.name + "Issues", "Issues (30 days) ")
-        createInstanceChart(plugin, plugin.name + "Instances", "Current Instances")
+        createIssuesChart(plugin, plugin.name + "Issues", "Issues (30 days) ");
+        createInstanceChart(plugin, plugin.name + "Instances", "Current Instances");
         if(window.location.hash == "#" + pluginContainer.id){
             window.location.href = "#" + pluginContainer.id;
         }
     }
 
-    var btnContainer = document.getElementById("btnContainer")
+    var btnContainer = document.getElementById("btnContainer");
     if (btnContainer){
         var buttonHTML = '<a href="#' + plugin.name + 'Container" class="dropdown-item">' +
             plugin.title +
-            '</a>'
-        btnContainer.innerHTML = btnContainer.innerHTML + buttonHTML
+            '</a>';
+        btnContainer.innerHTML = btnContainer.innerHTML + buttonHTML;
     }
 }
 
 function createIssuesChart(data, element, name){
     try{
-        var x_vals = []
-        var issues = []
-        var lines = []
+        var x_vals = [];
+        var issues = [];
+        var lines = [];
         
         for (let date in data.history){
-            x_vals.push(data.history[date].date)
+            x_vals.push(data.history[date].date);
             for (let status in data.history[date].issues){
                 if (!issues.includes(status)){
-                    issues.push(status)
+                    issues.push(status);
                 }
             }
         }
 
         for (let status in issues) {
-            var y_vals = []
+            var y_vals = [];
             for (let date in data.history) {
                 try {
-                    y_vals.push(data.history[date].issues[issues[status]])
+                    y_vals.push(data.history[date].issues[issues[status]]);
                 } catch (e) {
                     // if the version didn't exist on that date, line should be at 0
-                    y_vals.push(0)
+                    y_vals.push(0);
                 }
             }
             lines.push({
@@ -114,7 +114,7 @@ function createIssuesChart(data, element, name){
                 y: y_vals,
                 mode: 'lines',
                 name: issues[status]
-            })
+            });
         }
         layout = {
             title: name,
@@ -138,27 +138,27 @@ function createIssuesChart(data, element, name){
                 linecolor: '#636363',
                 linewidth: 3
             }
-        }
+        };
 
-        Plotly.newPlot(element, lines, layout, {displayModeBar: false})
+        Plotly.newPlot(element, lines, layout, {displayModeBar: false});
     } catch (e) {
-        console.log(name, e)
+        console.log(name, e);
     }
 }
 
 function createInstanceChart(data, element, name){
     try{
-        var x_vals = []
-        var y_vals_instances = []
-        var lines = []
+        var x_vals = [];
+        var y_vals_instances = [];
+        var lines = [];
         
         for (let date in data.history){
-            x_vals.push(data.history[date].date)
+            x_vals.push(data.history[date].date);
             try {
-                y_vals_instances.push(data.history[date].total)
+                y_vals_instances.push(data.history[date].total);
             } catch (e) {
                 // if the version didn't exist on that date, line should be at 0
-                y_vals_instances.push(0)
+                y_vals_instances.push(0);
             }
         }
         
@@ -167,7 +167,7 @@ function createInstanceChart(data, element, name){
             y: y_vals_instances,
             mode: 'lines',
             name: 'instances'
-        })
+        });
 
         layout = {
             title: name,
@@ -191,11 +191,11 @@ function createInstanceChart(data, element, name){
                 linecolor: '#636363',
                 linewidth: 3
             }
-        }
+        };
 
-        Plotly.newPlot(element, lines, layout, {displayModeBar: false})
+        Plotly.newPlot(element, lines, layout, {displayModeBar: false});
     } catch (e) {
-        console.log(name, e)
+        console.log(name, e);
     }
 }
 
@@ -219,7 +219,7 @@ function topFunction() {
 }
 
 function loadPage() {
-    getData()
+    getData();
 }
 
-loadPage()
+loadPage();
