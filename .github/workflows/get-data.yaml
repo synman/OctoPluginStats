@@ -7,7 +7,7 @@ on:
 
 jobs:
   get-data:
-    name: Get latest data
+    name: Usage Statistics
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
