@@ -11,7 +11,7 @@ import copy
 import os
 from typing import Dict, Union
 
-PLUGIN_AUTHOR: str = "synman"
+PLUGIN_AUTHOR: str = "Shell M. Shrader"
 
 DATA_URL: str = "https://plugins.octoprint.org/plugins.json"
 
