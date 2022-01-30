@@ -1,4 +1,4 @@
-name: Get new data
+name: Usage Statistics
 on:
   schedule:
     # Every day, 5 mins past, hopefully?
