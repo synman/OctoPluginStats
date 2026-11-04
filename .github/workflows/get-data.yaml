@@ -8,7 +8,7 @@ on:
 jobs:
   get-data:
     name: Get latest data
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
       - name: 🏗 Set up Python 3.14
